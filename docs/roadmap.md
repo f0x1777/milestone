@@ -1,16 +1,16 @@
 # Milestone Roadmap
 
-This roadmap is tuned for the Stellar Hackathon. The immediate goal is not feature breadth; it is a demo that shows wallet login, a Soroban-backed grant flow, a public audit trail, and the materials needed for submission.
+This roadmap is focused on getting Milestone from scaffold to a convincing product demo on Stellar testnet. The priority is not feature breadth; it is an end-to-end story that judges, sponsors, and technical reviewers can all understand quickly.
 
-## Next 2 Hours
+## Immediate Priorities
 
-1. Lock the narrative and labels across the repo: Stellar first, Soroban mandatory, wallet login plus fallback credentials.
-2. Validate the schema and seed against the app flow so a grant can be created and rendered end to end.
-3. Connect the UI to the public grant view model and make the transparency route submission-safe.
-4. Draft or tighten the Soroban contract interface so the app and DB share the same nouns.
-5. Prepare the demo dataset, validation notes, pitch outline, and deck skeleton.
+1. Wire the existing schema into the web app so grants can be read from Supabase.
+2. Implement a real `create_grant` slice that persists data and renders in the dashboard and transparency view.
+3. Deploy the Soroban contract to Stellar testnet and connect the contract ID to the app.
+4. Replace mock dashboard actions with wallet-backed release and pause flows.
+5. Prepare the demo dataset, validation notes, and pitch support materials.
 
-## First Build Slice
+## Immediate Build Slice
 
 - Create grant
 - Register sponsor, reviewer, and beneficiary
@@ -18,31 +18,40 @@ This roadmap is tuned for the Stellar Hackathon. The immediate goal is not featu
 - Show a public grant view
 - Support private evidence uploads
 
-## Second Build Slice
+## Next Build Slice
 
 - Track evidence packs per milestone window
 - Score evidence with a simple policy engine
 - Record reviewer decisions and override reasons
 - Persist release attempts and transaction hashes
 
-## Third Build Slice
+## Testnet Integration Slice
+
+The contract rules already exist locally. This slice is about deploying them to Stellar testnet and wiring the app to the real contract state and actions.
 
 - Wire the Soroban vault contract
 - Execute release and pause actions from the dashboard
 - Reflect onchain state in the UI
 - Add a timeline for grants, evidence, and releases
 
-## Submission Slice
+## Later Product Slice
 
 - Add delegated GitHub access for evidence collection
-- Replace hardcoded auth with real auth later, not now
+- Replace hardcoded auth with real auth later
 - Harden storage policies and public views
-- Record the demo video and pitch
+- Add scoring automation once the manual review flow is stable
 
-## Definition of Done
+## Submission Slice
+
+- Publish the hosted demo
+- Record the video and pitch
+- Package the deck and validation evidence
+- Dry-run the live flow against seeded or real testnet data
+
+## Definition of Done For The Current Iteration
 
 - A grant can be created and viewed.
 - Evidence can be uploaded and tied to a milestone.
 - The reviewer can approve, adjust, or pause.
 - The public page can show safe transparency data.
-- The repo contains the deck, video plan, validation evidence, and a clean submission story.
+- The repo and demo explain clearly what is real today and what remains stubbed.
