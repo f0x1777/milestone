@@ -1,15 +1,15 @@
 # Milestone Architecture
 
-Milestone is a grant execution platform for Stellar. The product goal is to turn grant funding into a controlled flow of escrow, evidence, release, pause, and audit.
+Milestone is built for the Stellar Hackathon as a simple, defensible story: sponsors deposit funds, beneficiaries submit evidence, reviewers release portions of the grant, and the public can inspect a safe audit trail.
 
 ## Current Stack Direction
 
-- `Next.js` for the product UI and API surface.
-- `Supabase Postgres` for operational data.
+- `Next.js` for the web app and route handlers.
+- `Supabase Postgres` for operational state.
 - `Supabase Storage` for evidence and public assets.
-- `Soroban` for the onchain vault contract.
-- `Stellar Wallets Kit` and wallet providers such as `Freighter` or `Beexo`.
-- `Stellar testnet` only for the first implementation.
+- `Soroban` for the onchain grant vault contract.
+- `Stellar Wallets Kit` or direct wallet integration for Stellar signing.
+- `Stellar testnet` only for the hackathon MVP.
 
 ## Responsibility Split
 
@@ -27,29 +27,28 @@ flowchart LR
 ## Onchain / Offchain Split
 
 - Onchain:
-  - grant vault custody
+  - grant custody
   - release controls
-  - pause/resume
+  - pause and resume
   - reclaim unused funds
-  - hashes for traceability
+  - traceability hashes
 - Offchain:
   - evidence ingestion
-  - scoring
-  - reviewer workflow
+  - basic scoring and review notes
   - dashboard rendering
   - public transparency view
+  - validation artifacts for the submission
 
 ## Security Model
 
 - Wallet connection is required for Stellar actions.
-- A hardcoded generic user/password path is allowed only for the first iteration so the team can move quickly.
-- The database schema is prepared for real auth later, but the auth layer itself should not be overbuilt now.
-- Public transparency should expose only grant-safe fields through views.
+- Generic hardcoded credentials are acceptable only for the first iteration so the team can ship the demo.
+- Supabase Auth can come later; it should not block the MVP.
+- Public transparency must expose only safe grant fields through views and API responses.
 
 ## Design Principles
 
 - Keep the first release semiautomatic, not autonomous.
 - Optimize for a visible end-to-end demo.
-- Make every release explainable by score, evidence, and reviewer override history.
-- Avoid multichain complexity until the Stellar flow is stable.
-
+- Make every release explainable by evidence and reviewer override history.
+- Avoid extra chain complexity until the Stellar flow is stable.

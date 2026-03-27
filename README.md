@@ -1,48 +1,37 @@
 # Milestone
 
-Milestone is a grant execution platform on Stellar testnet. The current repository is set up as a professional base that can keep moving in short iterations: Next.js web app, Soroban contract, Supabase schema, storage conventions, CI, and demo-friendly auth.
+Milestone is a Stellar Hackathon project for controlled grant distribution. The product turns sponsorship funding into a visible flow of deposit, evidence, reviewer decision, partial release, pause, and audit. The repo already contains the base app, Soroban contract, and Supabase schema needed to keep iterating fast.
 
 ## Workspace
 
-- `apps/web`: Next.js App Router UI and mock auth flow
-- `contracts/milestone-vault`: Soroban contract base for grant state and releases
-- `supabase`: schema, seed and storage notes
-- `docs`: architecture and roadmap
+- `apps/web`: Next.js App Router UI, wallet entry point, generic fallback login, and transparency views
+- `contracts/milestone-vault`: Soroban contract for grant custody and release state
+- `supabase`: Postgres schema, seed, storage conventions, and evidence workflow
+- `docs`: architecture and execution plan for the hackathon
 
-## Quick Start
+## How To Run
 
 1. Copy `.env.example` to `.env` and `apps/web/.env.example` to `apps/web/.env.local`.
 2. Install dependencies with `pnpm install`.
-3. Start the web app with `pnpm web:dev`.
-4. Run web checks with `pnpm lint`, `pnpm typecheck`.
-5. Run the contract test suite with `pnpm contract:test`.
+3. Run the web app with `pnpm web:dev`.
+4. Validate the repo with `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm contract:test`.
 
-## Demo Auth
+## Hackathon Scope
 
-- Generic credentials:
-  - email: `team@milestone.app`
-  - password: `milestone-demo`
-- Wallet placeholders:
-  - `Freighter`
-  - `Beexo`
+- Stellar testnet only.
+- Soroban is mandatory for the onchain proof.
+- Wallet connection is the primary login path, with a generic hardcoded user/password fallback for demo speed.
+- The deliverable set is repo, demo link, video pitch, deck, and validation evidence.
 
-## Current Scope
+## What Is Important
 
-- Stellar testnet only
-- wallet login placeholder plus hardcoded credentials
-- public transparency route
-- Supabase schema for grants, milestones, evidence, releases and audit
-- Soroban contract for grant lifecycle state
+- GitHub evidence is not automated yet; the workflow is defined so delegated repository access can be added later without redesigning the data model.
+- Supabase Auth is intentionally deferred. The first iteration uses web-level sessions so the team can move quickly.
+- The public page should only expose grant-safe fields through views and APIs.
 
-## Important Notes
-
-- GitHub evidence automation is not wired yet. The current workflow assumes delegated repository access to a Milestone-controlled service account and stores only metadata references.
-- The contract tracks grant state and release accounting today; token movement is the next onchain step.
-- Supabase Auth is intentionally deferred. The first iteration uses web-level sessions so the team can move fast without locking the final auth model too early.
-
-## Key Docs
+## Docs
 
 - [`/Users/nico/Projects-personal/milestone/docs/architecture.md`](/Users/nico/Projects-personal/milestone/docs/architecture.md)
 - [`/Users/nico/Projects-personal/milestone/docs/roadmap.md`](/Users/nico/Projects-personal/milestone/docs/roadmap.md)
 - [`/Users/nico/Projects-personal/milestone/supabase/README.md`](/Users/nico/Projects-personal/milestone/supabase/README.md)
-- [`/Users/nico/Projects-personal/milestone/contracts/milestone-vault/README.md`](/Users/nico/Projects-personal/milestone/contracts/milestone-vault/README.md)
+- [`/Users/nico/Projects-personal/milestone/supabase/storage.md`](/Users/nico/Projects-personal/milestone/supabase/storage.md)

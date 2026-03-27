@@ -1,16 +1,16 @@
 # Milestone Roadmap
 
-This roadmap is optimized for a fast iteration loop. The immediate target is a solid base that can be expanded in small steps.
+This roadmap is tuned for the Stellar Hackathon. The immediate goal is not feature breadth; it is a demo that shows wallet login, a Soroban-backed grant flow, a public audit trail, and the materials needed for submission.
 
-## Next 3 Hours
+## Next 2 Hours
 
-1. Validate the schema against the intended app flow.
-2. Build the Next.js shell with wallet login and generic credentials login.
-3. Connect the UI to the public grant view model.
-4. Draft the Soroban contract interface so the app and DB share the same nouns.
-5. Prepare a minimal demo dataset for public transparency.
+1. Lock the narrative and labels across the repo: Stellar first, Soroban mandatory, wallet login plus fallback credentials.
+2. Validate the schema and seed against the app flow so a grant can be created and rendered end to end.
+3. Connect the UI to the public grant view model and make the transparency route submission-safe.
+4. Draft or tighten the Soroban contract interface so the app and DB share the same nouns.
+5. Prepare the demo dataset, validation notes, pitch outline, and deck skeleton.
 
-## Phase 1
+## First Build Slice
 
 - Create grant
 - Register sponsor, reviewer, and beneficiary
@@ -18,32 +18,31 @@ This roadmap is optimized for a fast iteration loop. The immediate target is a s
 - Show a public grant view
 - Support private evidence uploads
 
-## Phase 2
+## Second Build Slice
 
 - Track evidence packs per milestone window
 - Score evidence with a simple policy engine
 - Record reviewer decisions and override reasons
 - Persist release attempts and transaction hashes
 
-## Phase 3
+## Third Build Slice
 
 - Wire the Soroban vault contract
 - Execute release and pause actions from the dashboard
 - Reflect onchain state in the UI
 - Add a timeline for grants, evidence, and releases
 
-## Phase 4
+## Submission Slice
 
 - Add delegated GitHub access for evidence collection
-- Replace hardcoded auth with real Supabase auth
-- Expand wallet provider support if needed
-- Harden RLS and storage policies
+- Replace hardcoded auth with real auth later, not now
+- Harden storage policies and public views
+- Record the demo video and pitch
 
-## Definition of Done for the First Iteration
+## Definition of Done
 
 - A grant can be created and viewed.
 - Evidence can be uploaded and tied to a milestone.
 - The reviewer can approve, adjust, or pause.
 - The public page can show safe transparency data.
-- The schema is clean enough to support the Soroban contract without renaming core entities.
-
+- The repo contains the deck, video plan, validation evidence, and a clean submission story.
