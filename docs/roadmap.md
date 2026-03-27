@@ -25,7 +25,9 @@ This roadmap is focused on getting Milestone from scaffold to a convincing produ
 - Record reviewer decisions and override reasons
 - Persist release attempts and transaction hashes
 
-## Onchain Wiring Slice
+## Testnet Integration Slice
+
+The contract rules already exist locally. This slice is about deploying them to Stellar testnet and wiring the app to the real contract state and actions.
 
 - Wire the Soroban vault contract
 - Execute release and pause actions from the dashboard

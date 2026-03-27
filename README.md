@@ -4,7 +4,7 @@ Milestone is a conditional grant disbursement platform built on the Stellar netw
 
 The goal is simple: sponsors should be able to fund outcomes, not promises. Beneficiaries should know what they need to deliver. Reviewers should be able to justify every release. The public should be able to inspect a safe transparency trail without exposing private evidence.
 
-This repository already contains the product foundation: the web application, the Soroban contract boundary, the Supabase schema, and the documentation needed to evaluate the design and keep building quickly.
+This repository already contains the product foundation: the web application, the Soroban contract scaffold, the Supabase schema, and the documentation needed to evaluate the design and keep building quickly.
 
 ## What Milestone Does
 
@@ -62,9 +62,9 @@ Still pending for the full demo:
 If you are evaluating the project, the fastest order is:
 
 1. Read this file for the product story and the honest implementation status.
-2. Review the contract scope in [`/Users/nico/Projects-personal/milestone/contracts/milestone-vault/README.md`](/Users/nico/Projects-personal/milestone/contracts/milestone-vault/README.md).
-3. Review current architecture and pending work in [`/Users/nico/Projects-personal/milestone/docs/architecture.md`](/Users/nico/Projects-personal/milestone/docs/architecture.md), [`/Users/nico/Projects-personal/milestone/docs/status.md`](/Users/nico/Projects-personal/milestone/docs/status.md), and [`/Users/nico/Projects-personal/milestone/docs/roadmap.md`](/Users/nico/Projects-personal/milestone/docs/roadmap.md).
-4. Inspect the current web shell in [`/Users/nico/Projects-personal/milestone/apps/web`](/Users/nico/Projects-personal/milestone/apps/web) and the database model in [`/Users/nico/Projects-personal/milestone/supabase`](/Users/nico/Projects-personal/milestone/supabase).
+2. Review the contract scope in [`contracts/milestone-vault/README.md`](./contracts/milestone-vault/README.md).
+3. Review current architecture and pending work in [`docs/architecture.md`](./docs/architecture.md), [`docs/status.md`](./docs/status.md), and [`docs/roadmap.md`](./docs/roadmap.md).
+4. Inspect the current web shell in [`apps/web`](./apps/web) and the database model in [`supabase`](./supabase).
 
 ## Workspace
 
@@ -102,8 +102,8 @@ Prerequisites:
 
 ## Docs
 
-- [`/Users/nico/Projects-personal/milestone/docs/architecture.md`](/Users/nico/Projects-personal/milestone/docs/architecture.md)
-- [`/Users/nico/Projects-personal/milestone/docs/status.md`](/Users/nico/Projects-personal/milestone/docs/status.md)
-- [`/Users/nico/Projects-personal/milestone/docs/roadmap.md`](/Users/nico/Projects-personal/milestone/docs/roadmap.md)
-- [`/Users/nico/Projects-personal/milestone/supabase/README.md`](/Users/nico/Projects-personal/milestone/supabase/README.md)
-- [`/Users/nico/Projects-personal/milestone/supabase/storage.md`](/Users/nico/Projects-personal/milestone/supabase/storage.md)
+- [`docs/architecture.md`](./docs/architecture.md)
+- [`docs/status.md`](./docs/status.md)
+- [`docs/roadmap.md`](./docs/roadmap.md)
+- [`supabase/README.md`](./supabase/README.md)
+- [`supabase/storage.md`](./supabase/storage.md)
