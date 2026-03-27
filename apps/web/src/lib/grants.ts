@@ -355,7 +355,7 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
     return getFallbackDashboardSnapshot();
   }
 
-  const [{ data: grantRows, error: grantsError }, { data: auditRows, error: auditError }, { count: openFlagsCount, error: flagsError }] =
+  const [{ data: grantRows, error: grantsError }, { count: openFlagsCount, error: flagsError }] =
     await Promise.all([
       supabase
         .from("grants")
@@ -365,21 +365,30 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
         .order("created_at", { ascending: false })
         .limit(8),
       supabase
-        .from("grant_latest_activity")
-        .select("grant_id, event_type, payload, created_at")
-        .order("created_at", { ascending: false })
-        .limit(6),
-      supabase
         .from("pause_events")
         .select("id", { count: "exact", head: true })
         .eq("state", "paused")
     ]);
 
-  if (grantsError || auditError || flagsError) {
+  if (grantsError || flagsError) {
     return getFallbackDashboardSnapshot();
   }
 
   const grants = (grantRows ?? []) as GrantRow[];
+  const grantIds = grants.map((grant) => grant.id);
+  const { data: auditRows, error: auditError } = grantIds.length
+    ? await supabase
+        .from("grant_latest_activity")
+        .select("grant_id, event_type, payload, created_at")
+        .in("grant_id", grantIds)
+        .order("created_at", { ascending: false })
+        .limit(6)
+    : { data: [], error: null };
+
+  if (auditError) {
+    return getFallbackDashboardSnapshot();
+  }
+
   const auditTrail = ((auditRows ?? []) as AuditEventRow[]).map((row) => ({
     label: mapAuditEventLabel(row.event_type),
     detail: mapAuditEventDetail(row),

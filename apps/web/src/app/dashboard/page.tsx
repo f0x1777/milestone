@@ -284,7 +284,10 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           />
           <div className="mt-6 grid gap-3">
             {snapshot.auditTrail.map((item) => (
-              <div key={item.label} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+              <div
+                key={`${item.label}-${item.createdAt ?? item.detail}`}
+                className="rounded-2xl border border-white/10 bg-slate-950/60 p-4"
+              >
                 <p className="font-medium text-white">{item.label}</p>
                 <p className="mt-1 text-sm text-white/60">{item.detail}</p>
               </div>
