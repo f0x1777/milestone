@@ -13,6 +13,7 @@ type LoginBody = {
   email?: string;
   password?: string;
   walletLabel?: string;
+  walletAddress?: string;
   nextPath?: string;
 };
 
@@ -44,13 +45,17 @@ export async function POST(request: Request) {
     }
 
     const response = NextResponse.json({ ok: true });
-    response.cookies.set(mockSessionCookie, encodeMockSession(createWalletSession(body.walletLabel)), {
-      httpOnly: true,
-      sameSite: "lax",
-      path: "/",
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 8
-    });
+    response.cookies.set(
+      mockSessionCookie,
+      encodeMockSession(createWalletSession(body.walletLabel, body.walletAddress)),
+      {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 8
+      }
+    );
     return response;
   }
 

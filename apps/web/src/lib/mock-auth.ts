@@ -10,11 +10,12 @@ export type MockSession = {
   role: "admin" | "sponsor" | "reviewer" | "beneficiary";
   authMethod: "password" | "wallet";
   walletAddress?: string;
+  walletProvider?: string;
   email?: string;
 };
 
 export const mockSessionCookie = "milestone_session";
-export const supportedWalletProviders = ["Freighter", "Beexo"] as const;
+export const supportedWalletProviders = ["Freighter"] as const;
 
 export function isSupportedWalletProvider(
   walletLabel: string
@@ -48,17 +49,15 @@ export function createPasswordSession(email: string): MockSession {
 }
 
 export function createWalletSession(
-  walletLabel: (typeof supportedWalletProviders)[number]
+  walletLabel: (typeof supportedWalletProviders)[number],
+  walletAddress?: string
 ): MockSession {
-  const walletAddress =
-    walletLabel === "Freighter"
-      ? "GBMILESTONEFREIGHTERDEMOXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-      : "GBMILESTONEBEEXODEMOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-
   return {
     name: `${walletLabel} Reviewer`,
     role: "reviewer",
     authMethod: "wallet",
-    walletAddress
+    walletProvider: walletLabel,
+    walletAddress:
+      walletAddress ?? "GBMILESTONEFREIGHTERDEMOXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   };
 }

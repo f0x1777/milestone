@@ -22,7 +22,7 @@ test("encodes and decodes a password session", () => {
 
 test("only approved wallet providers are accepted", () => {
   assert.equal(isSupportedWalletProvider("Freighter"), true);
-  assert.equal(isSupportedWalletProvider("Beexo"), true);
+  assert.equal(isSupportedWalletProvider("Albedo"), false);
   assert.equal(isSupportedWalletProvider("WalletConnect SDK"), false);
 });
 

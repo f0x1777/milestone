@@ -7,7 +7,7 @@ Next.js App Router scaffold for Milestone.
 - Landing page with branded layout
 - Dashboard and public transparency views
 - Mock auth flow with hardcoded credentials
-- Wallet login placeholders for Freighter and Beexo
+- Freighter-first wallet flow prepared with Stellar Wallets Kit
 - Route handlers for mock session creation and logout
 
 ## Local run
@@ -27,5 +27,5 @@ pnpm dev
 ## Notes
 
 - This scaffold intentionally stays inside `apps/web`.
-- Root workspace glue is not created here, so if you want a true pnpm monorepo, add the workspace files at the repo root in a follow-up step.
-
+- The repository already has a root workspace, so you can also run it from the repo root with `pnpm web:dev`.
+- Freighter is the visible wallet path for the Stellar hackathon demo. The generic credentials flow remains as a fallback for operators and judges.

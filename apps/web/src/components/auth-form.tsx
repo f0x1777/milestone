@@ -3,6 +3,7 @@
 import { useState, useTransition, type FormEvent } from "react";
 import { Loader2, Wallet } from "lucide-react";
 import { mockCredentials, supportedWalletProviders } from "@/lib/mock-auth";
+import { connectFreighterWallet } from "@/lib/stellar-wallet";
 
 export function AuthForm({ nextPath }: { nextPath: string }) {
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,7 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
     });
   }
 
-  async function submitWallet(walletLabel: string) {
+  async function submitWallet(walletLabel: string, walletAddress?: string) {
     setError(null);
     const response = await fetch("/api/mock-auth/login", {
       method: "POST",
@@ -46,6 +47,7 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
       body: JSON.stringify({
         mode: "wallet",
         walletLabel,
+        walletAddress,
         nextPath
       })
     });
@@ -59,9 +61,18 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
     window.location.href = nextPath || "/dashboard";
   }
 
-  function handleWalletStub(walletLabel: string) {
+  function handleWalletConnect() {
     startTransition(() => {
-      void submitWallet(walletLabel);
+      void (async () => {
+        try {
+          const { address } = await connectFreighterWallet();
+          await submitWallet("Freighter", address);
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : "Freighter connection failed.";
+          setError(message);
+        }
+      })();
     });
   }
 
@@ -133,34 +144,31 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
           Wallet login
         </p>
         <h2 className="mt-3 text-2xl font-semibold text-white">
-          Wallet-first flow, now as a placeholder
+          Freighter-first flow for the Stellar demo
         </h2>
         <p className="mt-3 text-sm leading-6 text-white/64">
-          Freighter and Beexo will be wired through the Stellar Wallets SDK.
-          This panel keeps the shape of the flow in place for the contract and
-          session layer work.
+          This path uses Stellar Wallets Kit with Freighter as the visible
+          hackathon wallet. The generic login remains available so judges can
+          still inspect the dashboard even if the extension is not installed.
         </p>
 
         <div className="mt-6 grid gap-3">
-          {supportedWalletProviders.map((label) => (
-            <button
-              key={label}
-              type="button"
-              onClick={() => handleWalletStub(label)}
-              className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-left text-sm text-white transition hover:border-brand-300/30 hover:bg-slate-950/70"
-            >
-              <span>{label}</span>
-              <span className="text-xs text-white/38">
-                stubbed in this scaffold
-              </span>
-            </button>
-          ))}
+          <button
+            type="button"
+            onClick={handleWalletConnect}
+            className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-left text-sm text-white transition hover:border-brand-300/30 hover:bg-slate-950/70"
+          >
+            <span>{supportedWalletProviders[0]}</span>
+            <span className="text-xs text-white/38">
+              connect with extension
+            </span>
+          </button>
         </div>
 
         <div className="mt-6 rounded-2xl border border-dashed border-white/12 bg-black/20 p-4 text-sm text-white/64">
           Wallet sessions should eventually derive from a signed challenge and
-          the Stellar account. For now, the scaffold preserves the UI, route
-          shape, and the provider split for Freighter and Beexo.
+          the Stellar account. This scaffold already preserves the Freighter
+          path while the generic fallback keeps the demo moving.
         </div>
       </div>
     </div>
