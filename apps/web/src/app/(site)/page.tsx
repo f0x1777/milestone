@@ -3,9 +3,20 @@ import { ArrowRight, BadgeCheck, GitBranch, Shield, Sparkles } from "lucide-reac
 import { SiteShell } from "@/components/site-shell";
 import { StatCard } from "@/components/stat-card";
 import { SectionHeading } from "@/components/section-heading";
-import { auditTrail, grants, milestones } from "@/lib/mock-data";
+import { getTransparencySnapshot } from "@/lib/grants";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const snapshot = await getTransparencySnapshot();
+  const totalEscrow = snapshot.grants.reduce((sum, grant) => {
+    const amount = Number(grant.amount.split(" ")[0].replace(/,/g, ""));
+    return sum + (Number.isFinite(amount) ? amount : 0);
+  }, 0);
+  const releasedGrants = snapshot.grants.filter((grant) =>
+    grant.release !== "No releases yet"
+  ).length;
+
   return (
     <SiteShell>
       <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
@@ -19,8 +30,9 @@ export default function HomePage() {
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-white/68 sm:text-lg">
             Milestone turns sponsor capital into a verifiable release flow:
-            deposit, evidence, decision, partial unlock and pause. The scaffold
-            is ready for wallet auth, Supabase and Soroban.
+            deposit, evidence, decision, partial unlock and pause. The current
+            web layer now reads through the shared data layer and is ready to
+            connect to live Supabase and Soroban state.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -49,10 +61,29 @@ export default function HomePage() {
               </span>
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <StatCard label="Total escrow" value="12,500 XLM" hint="Funds parked in the Milestone vault." accent />
-              <StatCard label="Unlocked" value="28%" hint="Reviewer-approved partial releases." />
-              <StatCard label="Evidence packs" value="4" hint="GitHub, docs, demo and notes." />
-              <StatCard label="Risk flags" value="1 active" hint="Pause path ready for the next iteration." />
+              <StatCard
+                label="Total escrow"
+                value={`${new Intl.NumberFormat("en-US", {
+                  maximumFractionDigits: 2
+                }).format(totalEscrow)} XLM`}
+                hint="Current public grant commitments."
+                accent
+              />
+              <StatCard
+                label="Public grants"
+                value={String(snapshot.grants.length)}
+                hint="Currently visible on the transparency route."
+              />
+              <StatCard
+                label="Review windows"
+                value={String(snapshot.milestones.length)}
+                hint="Milestones currently attached to public grants."
+              />
+              <StatCard
+                label="Released grants"
+                value={String(releasedGrants)}
+                hint="Public grants with at least one release recorded."
+              />
             </div>
           </div>
         </div>
@@ -66,7 +97,7 @@ export default function HomePage() {
             description="This is the operating model that the contract and dashboard should preserve."
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {milestones.map((item) => (
+            {snapshot.milestones.map((item) => (
               <div key={item.name} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-medium text-white">{item.name}</p>
@@ -84,7 +115,7 @@ export default function HomePage() {
             description="Decision hashes, evidence links and release events are all first-class records."
           />
           <div className="mt-6 space-y-4">
-            {auditTrail.map((item) => (
+            {snapshot.auditTrail.map((item) => (
               <div key={item.label} className="flex gap-3">
                 <BadgeCheck className="mt-1 h-5 w-5 text-brand-200" />
                 <div>
@@ -98,14 +129,14 @@ export default function HomePage() {
       </section>
 
       <section className="mt-14 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-halo backdrop-blur-xl">
-        <SectionHeading
-          eyebrow="Portfolio"
-          title="Milestone already has a shape for sponsors and reviewers"
-          description="These cards mirror the entities the backend and contract will eventually manage."
-        />
+          <SectionHeading
+            eyebrow="Portfolio"
+            title="Milestone already has a shape for sponsors and reviewers"
+            description="These cards mirror the entities the backend and contract will eventually manage."
+          />
         <div className="mt-8 grid gap-4 lg:grid-cols-2">
-          {grants.map((grant) => (
-            <div key={grant.title} className="rounded-2xl border border-white/10 bg-slate-950/60 p-5">
+          {snapshot.grants.map((grant) => (
+            <div key={grant.id} className="rounded-2xl border border-white/10 bg-slate-950/60 p-5">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-lg font-semibold text-white">{grant.title}</p>

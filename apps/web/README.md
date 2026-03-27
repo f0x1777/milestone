@@ -29,3 +29,4 @@ pnpm dev
 - This scaffold intentionally stays inside `apps/web`.
 - The repository already has a root workspace, so you can also run it from the repo root with `pnpm web:dev`.
 - Freighter is the current visible wallet path for the Stellar-based flow. The generic credentials path remains as a temporary fallback for operators and judges.
+- Real Supabase reads need `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Real grant creation also needs `SUPABASE_SERVICE_ROLE_KEY` on the server side.
