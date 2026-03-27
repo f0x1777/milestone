@@ -12,7 +12,7 @@ Next.js App Router scaffold for Milestone.
 
 ## Local run
 
-Install dependencies inside `apps/web` and run:
+Use Node.js `22.18.0` or newer and `pnpm 10.32.1` or newer. Then install dependencies inside `apps/web` and run:
 
 ```bash
 pnpm install

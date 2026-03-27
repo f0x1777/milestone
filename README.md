@@ -11,6 +11,11 @@ Milestone is a Stellar Hackathon project for controlled grant distribution. The 
 
 ## How To Run
 
+Prerequisites:
+
+- Node.js `22.18.0` or newer
+- `pnpm 10.32.1` or newer
+
 1. Copy `.env.example` to `.env` and `apps/web/.env.example` to `apps/web/.env.local`.
 2. Install dependencies with `pnpm install`.
 3. Run the web app with `pnpm web:dev`.
