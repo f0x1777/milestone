@@ -8,7 +8,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test && pnpm contract:test",
+    "test": "turbo run test",
+    "test:all": "pnpm test && pnpm contract:test",
     "web:build": "pnpm --filter milestone-web build",
     "web:dev": "pnpm --filter milestone-web dev",
     "format": "turbo run format"
