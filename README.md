@@ -4,7 +4,7 @@ Milestone is a conditional grant disbursement platform built on the Stellar netw
 
 The goal is simple: sponsors should be able to fund outcomes, not promises. Beneficiaries should know what they need to deliver. Reviewers should be able to justify every release. The public should be able to inspect a safe transparency trail without exposing private evidence.
 
-This repository already contains the product foundation: the web application, the Soroban contract scaffold, the Supabase schema, and the documentation needed to evaluate the design and keep building quickly.
+This repository already contains the product foundation: the web application, the Soroban contract implementation, the Supabase schema, and the documentation needed to evaluate the design and keep building quickly.
 
 ## What Milestone Does
 
@@ -45,7 +45,7 @@ Already implemented:
 
 - Next.js product shell with landing page, dashboard, auth entry, and transparency view.
 - Freighter-first wallet entry plus a generic fallback demo login.
-- Soroban contract scaffold with grant lifecycle rules and automated Rust tests.
+- Soroban contract implementation with grant lifecycle rules and automated Rust tests.
 - Supabase schema for grants, milestones, evidence, evaluations, releases, pauses, and audit events.
 - Documentation for storage conventions, delegated GitHub evidence workflow, and technical roadmap.
 

@@ -2,7 +2,7 @@
 
 This roadmap is focused on getting Milestone from scaffold to a convincing product demo on Stellar testnet. The priority is not feature breadth; it is an end-to-end story that judges, sponsors, and technical reviewers can all understand quickly.
 
-## Next 2 Hours
+## Immediate Priorities
 
 1. Wire the existing schema into the web app so grants can be read from Supabase.
 2. Implement a real `create_grant` slice that persists data and renders in the dashboard and transparency view.
