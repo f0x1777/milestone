@@ -1,6 +1,6 @@
 export const mockCredentials = {
   email: "team@milestone.app",
-  password: "milestone-demo",
+  password: "team@milestone.app",
   walletLabel: "Freighter",
   walletAddress: "GBMILESTONEFREIGHTERDEMOXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 };

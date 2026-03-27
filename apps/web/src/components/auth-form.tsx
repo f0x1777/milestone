@@ -123,7 +123,7 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
               id="password"
               name="password"
               type="password"
-              placeholder="milestone-demo"
+              placeholder="team@milestone.app"
               className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-3 text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
             />
           </div>
