@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.local
+.env.*.local
+.vercel
+.turbo
+node_modules
+dist
+build
+.next
+coverage
+target
+.soroban
+supabase/.temp
+apps/web/.env.local
