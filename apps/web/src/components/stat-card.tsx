@@ -4,7 +4,7 @@ export function StatCard({
   label,
   value,
   hint,
-  accent = false
+  accent = false,
 }: {
   label: string;
   value: string;
@@ -14,14 +14,22 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "rounded-3xl border border-white/10 bg-white/5 p-5 shadow-halo backdrop-blur-xl",
-        accent && "border-brand-300/30 bg-brand-400/10"
+        "rounded-2xl border border-charcoal-100 bg-white p-5 shadow-soft transition-shadow hover:shadow-card",
+        accent && "border-milestone-200 bg-milestone-50"
       )}
     >
-      <p className="text-xs uppercase tracking-[0.26em] text-white/45">{label}</p>
-      <p className="mt-3 text-3xl font-semibold tracking-tight text-white">{value}</p>
-      <p className="mt-2 text-sm text-white/64">{hint}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.26em] text-charcoal-400">
+        {label}
+      </p>
+      <p
+        className={cn(
+          "mt-3 text-3xl font-semibold tracking-tight text-charcoal-900",
+          accent && "text-milestone-600"
+        )}
+      >
+        {value}
+      </p>
+      <p className="mt-2 text-sm text-charcoal-400">{hint}</p>
     </div>
   );
 }
-

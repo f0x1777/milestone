@@ -1,32 +1,39 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
 
-const spaceGrotesk = Space_Grotesk({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-space-grotesk"
+  variable: "--font-geist",
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-ibm-plex-mono"
+  variable: "--font-ibm-plex-mono",
 });
 
 export const metadata: Metadata = {
   title: "Milestone",
   description:
-    "Programmatic grants on Stellar with evidence, controlled releases and auditability."
+    "Programmatic grants on Stellar with evidence, controlled releases and auditability.",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${geist.variable} ${ibmPlexMono.variable}`}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

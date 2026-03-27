@@ -10,7 +10,7 @@ export default async function TransparencyPage() {
 
   return (
     <SiteShell>
-      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-halo backdrop-blur-xl">
+      <section className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
           eyebrow="Public view"
           title="Transparency without login"
@@ -18,18 +18,20 @@ export default async function TransparencyPage() {
         />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-5">
-            <div className="flex items-center gap-2 text-brand-100">
+          <div className="rounded-2xl border border-charcoal-100 bg-charcoal-50 p-5">
+            <div className="flex items-center gap-2 font-medium text-milestone-500">
               <Fingerprint className="h-4 w-4" />
               Onchain summary
             </div>
             <div className="mt-5 space-y-4">
               {snapshot.milestones.map((item) => (
                 <div key={item.name} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-brand-200" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-milestone-400" />
                   <div>
-                    <p className="font-medium text-white">{item.name}</p>
-                    <p className="mt-1 text-sm text-white/60">{item.summary}</p>
+                    <p className="font-medium text-charcoal-800">{item.name}</p>
+                    <p className="mt-1 text-sm text-charcoal-400">
+                      {item.summary}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -37,20 +39,25 @@ export default async function TransparencyPage() {
           </div>
           <div className="grid gap-4">
             {snapshot.grants.map((grant) => (
-              <div key={grant.id} className="rounded-2xl border border-white/10 bg-slate-950/60 p-5">
+              <div
+                key={grant.id}
+                className="rounded-2xl border border-charcoal-100 bg-charcoal-50 p-5 transition-shadow hover:shadow-soft"
+              >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-lg font-semibold text-white">{grant.title}</p>
-                    <p className="mt-1 text-sm text-white/60">
+                    <p className="text-lg font-semibold text-charcoal-900">
+                      {grant.title}
+                    </p>
+                    <p className="mt-1 text-sm text-charcoal-400">
                       {grant.beneficiary} · Sponsor: {grant.sponsor}
                     </p>
                   </div>
-                  <span className="rounded-full border border-brand-300/20 bg-brand-400/10 px-3 py-1 text-xs text-brand-100">
+                  <span className="rounded-full border border-milestone-200 bg-milestone-50 px-3 py-1 text-xs font-semibold text-milestone-600">
                     {grant.status}
                   </span>
                 </div>
-                <p className="mt-4 text-sm text-white/60">{grant.note}</p>
-                <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/64">
+                <p className="mt-4 text-sm text-charcoal-400">{grant.note}</p>
+                <div className="mt-4 flex items-center justify-between rounded-xl border border-charcoal-100 bg-white px-4 py-3 text-sm text-charcoal-500">
                   <span>{grant.amount}</span>
                   <span>{grant.release}</span>
                 </div>
@@ -60,7 +67,7 @@ export default async function TransparencyPage() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-halo backdrop-blur-xl">
+      <section className="mt-10 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
           eyebrow="Latest activity"
           title="Each public grant keeps a visible trail"
@@ -68,18 +75,21 @@ export default async function TransparencyPage() {
         />
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {snapshot.auditTrail.map((item) => (
-            <div key={`${item.label}-${item.createdAt ?? item.detail}`} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
-              <div className="flex items-center gap-2 text-brand-100">
+            <div
+              key={`${item.label}-${item.createdAt ?? item.detail}`}
+              className="rounded-xl border border-charcoal-100 bg-charcoal-50 p-4 transition-shadow hover:shadow-soft"
+            >
+              <div className="flex items-center gap-2 text-milestone-500">
                 <BadgeCheck className="h-4 w-4" />
-                <p className="font-medium text-white">{item.label}</p>
+                <p className="font-medium text-charcoal-800">{item.label}</p>
               </div>
-              <p className="mt-2 text-sm text-white/60">{item.detail}</p>
+              <p className="mt-2 text-sm text-charcoal-400">{item.detail}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-halo backdrop-blur-xl">
+      <section className="mt-10 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
           eyebrow="Evidence flow"
           title="Delegated repository access is already part of the operating model"
@@ -87,9 +97,12 @@ export default async function TransparencyPage() {
         />
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {snapshot.delegatedGithubWorkflow.map((step) => (
-            <div key={step.title} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
-              <p className="font-medium text-white">{step.title}</p>
-              <p className="mt-2 text-sm text-white/60">{step.detail}</p>
+            <div
+              key={step.title}
+              className="rounded-2xl border border-charcoal-100 bg-charcoal-50 p-4 transition-shadow hover:shadow-soft"
+            >
+              <p className="font-medium text-charcoal-800">{step.title}</p>
+              <p className="mt-2 text-sm text-charcoal-400">{step.detail}</p>
             </div>
           ))}
         </div>

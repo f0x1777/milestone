@@ -4,10 +4,15 @@ const config: Config = {
   content: [
     "./src/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}"
+    "./components/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist)", "system-ui", "sans-serif"],
+        mono: ["var(--font-ibm-plex-mono)", "monospace"],
+        instrument: ['"Instrument Serif"', "serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -18,42 +23,48 @@ const config: Config = {
         border: "hsl(var(--border))",
         accent: "hsl(var(--accent))",
         "accent-foreground": "hsl(var(--accent-foreground))",
-        brand: {
-          50: "#e8fff8",
-          100: "#c8f7ea",
-          200: "#92ead4",
-          300: "#5bd8ba",
-          400: "#24c39a",
-          500: "#0fa37f",
-          600: "#0b7f63",
-          700: "#0a644f",
-          800: "#0b4d3f",
-          900: "#093e33"
+        milestone: {
+          50: "#eef9fd",
+          100: "#d4f1fa",
+          200: "#a9e3f5",
+          300: "#6ecfed",
+          400: "#33B5E5",
+          500: "#1a9fd4",
+          600: "#1280b0",
+          700: "#12678e",
+          800: "#145574",
+          900: "#154762",
         },
-        sand: {
-          50: "#faf6ef",
-          100: "#f1e6d2",
-          200: "#e5cfab",
-          300: "#d7b57e",
-          400: "#c18b4f",
-          500: "#aa6d2f",
-          600: "#8a5525",
-          700: "#6b4321",
-          800: "#53341c",
-          900: "#3a2615"
-        }
+        charcoal: {
+          50: "#f6f6f6",
+          100: "#e7e7e7",
+          200: "#d1d1d1",
+          300: "#b0b0b0",
+          400: "#888888",
+          500: "#6d6d6d",
+          600: "#5d5d5d",
+          700: "#4f4f4f",
+          800: "#3C3C3C",
+          900: "#2a2a2a",
+          950: "#1a1a1a",
+        },
       },
       boxShadow: {
-        halo: "0 0 0 1px rgba(255,255,255,0.08), 0 24px 80px rgba(6, 36, 32, 0.24)"
+        soft: "0px 1px 2px rgba(0,0,0,0.04), 0px 4px 16px rgba(0,0,0,0.04)",
+        card: "0px 2px 4px rgba(0,0,0,0.02), 0px 8px 32px rgba(0,0,0,0.06)",
+        elevated:
+          "0px 4px 8px rgba(0,0,0,0.04), 0px 16px 48px rgba(0,0,0,0.08)",
+        input: "0px 10px 40px 5px rgba(194,194,194,0.25)",
+        "cta-inset":
+          "inset -4px -6px 25px 0px rgba(201,201,201,0.08), inset 4px 4px 10px 0px rgba(29,29,29,0.24)",
       },
       backgroundImage: {
         "grid-fade":
-          "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)"
-      }
-    }
+          "linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)",
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };
 
 export default config;
-
