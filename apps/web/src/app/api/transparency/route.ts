@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server";
-import {
-  auditTrail,
-  delegatedGithubWorkflow,
-  grants,
-  milestones
-} from "@/lib/mock-data";
+import { getTransparencySnapshot } from "@/lib/grants";
 
 export async function GET() {
+  const snapshot = await getTransparencySnapshot();
+
   return NextResponse.json({
-    grants,
-    milestones,
-    auditTrail,
-    delegatedGithubWorkflow
+    grants: snapshot.grants,
+    milestones: snapshot.milestones,
+    auditTrail: snapshot.auditTrail,
+    delegatedGithubWorkflow: snapshot.delegatedGithubWorkflow,
+    source: snapshot.source,
+    sourceLabel: snapshot.sourceLabel
   });
 }
