@@ -13,3 +13,7 @@ soroban-sdk = "25.3.0"
 
 [dev-dependencies]
 soroban-sdk = { version = "25.3.0", features = ["testutils"] }
+
+[features]
+default = ["testutils"]
+testutils = ["soroban-sdk/testutils"]

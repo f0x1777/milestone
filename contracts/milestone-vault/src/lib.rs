@@ -36,6 +36,24 @@ pub struct Grant {
 
 #[derive(Clone)]
 #[contracttype]
+pub struct GrantSummary {
+    pub id: u64,
+    pub sponsor: Address,
+    pub reviewer: Address,
+    pub beneficiary: Option<Address>,
+    pub total_amount: u128,
+    pub funded_amount: u128,
+    pub released_amount: u128,
+    pub reclaimed_amount: u128,
+    pub available_amount: u128,
+    pub status: GrantStatus,
+    pub metadata_hash: String,
+    pub decision_hash: Option<String>,
+    pub pause_reason: Option<String>,
+}
+
+#[derive(Clone)]
+#[contracttype]
 pub enum DataKey {
     NextGrantId,
     Grant(u64),
@@ -51,6 +69,7 @@ pub enum MilestoneError {
     InvalidAmount = 4,
     MissingBeneficiary = 5,
     FundingOverflow = 6,
+    InvalidParties = 7,
 }
 
 #[contract]
@@ -67,6 +86,9 @@ impl MilestoneVault {
     ) -> u64 {
         if total_amount == 0 {
             panic_with_error!(&env, MilestoneError::InvalidAmount);
+        }
+        if sponsor == reviewer {
+            panic_with_error!(&env, MilestoneError::InvalidParties);
         }
 
         sponsor.require_auth();
@@ -227,6 +249,25 @@ impl MilestoneVault {
         Self::read_grant(&env, grant_id)
     }
 
+    pub fn get_grant_summary(env: Env, grant_id: u64) -> GrantSummary {
+        let grant = Self::read_grant(&env, grant_id);
+        GrantSummary {
+            available_amount: Self::available_amount(&env, &grant),
+            id: grant.id,
+            sponsor: grant.sponsor,
+            reviewer: grant.reviewer,
+            beneficiary: grant.beneficiary,
+            total_amount: grant.total_amount,
+            funded_amount: grant.funded_amount,
+            released_amount: grant.released_amount,
+            reclaimed_amount: grant.reclaimed_amount,
+            status: grant.status,
+            metadata_hash: grant.metadata_hash,
+            decision_hash: grant.decision_hash,
+            pause_reason: grant.pause_reason,
+        }
+    }
+
     fn next_grant_id(env: &Env) -> u64 {
         env.storage()
             .instance()
@@ -249,6 +290,14 @@ impl MilestoneVault {
         env.storage()
             .instance()
             .set(&DataKey::Grant(grant.id), grant);
+    }
+
+    fn available_amount(env: &Env, grant: &Grant) -> u128 {
+        grant
+            .funded_amount
+            .checked_sub(grant.released_amount)
+            .and_then(|amount| amount.checked_sub(grant.reclaimed_amount))
+            .unwrap_or_else(|| panic_with_error!(env, MilestoneError::InvalidAmount))
     }
 
     fn assert_sponsor(env: &Env, grant: &Grant, actor: &Address) {

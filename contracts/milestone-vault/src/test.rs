@@ -65,6 +65,10 @@ fn grant_lifecycle_happy_path() {
     grant = client.get_grant(&grant_id);
     assert_eq!(grant.status, GrantStatus::Closed);
     assert_eq!(grant.reclaimed_amount, 350);
+
+    let summary = client.get_grant_summary(&grant_id);
+    assert_eq!(summary.available_amount, 0);
+    assert_eq!(summary.status, GrantStatus::Closed);
 }
 
 #[test]
@@ -122,4 +126,21 @@ fn rejects_double_reclaim_after_closing() {
     client.fund_grant(&sponsor, &grant_id, &500u128);
     let _ = client.reclaim_unused(&sponsor, &grant_id);
     client.reclaim_unused(&sponsor, &grant_id);
+}
+
+#[test]
+#[should_panic]
+fn rejects_same_account_as_sponsor_and_reviewer() {
+    let env = Env::default();
+    env.mock_all_auths();
+    let sponsor = Address::generate(&env);
+    let contract_id = MilestoneVault.register(&env, None, ());
+    let client = MilestoneVaultClient::new(&env, &contract_id);
+
+    client.create_grant(
+        &sponsor,
+        &sponsor,
+        &1_000u128,
+        &String::from_str(&env, "meta-hash-005"),
+    );
 }
