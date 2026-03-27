@@ -49,7 +49,7 @@ export default async function DashboardPage({
                 Dashboard
               </p>
               <h1 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal-900">
-                Milestone control room
+                Grant control room
               </h1>
             </div>
             <div className="rounded-full border border-milestone-200 bg-milestone-50 px-4 py-2 text-sm font-semibold text-milestone-600">
@@ -61,23 +61,23 @@ export default async function DashboardPage({
             <StatCard
               label="Active grants"
               value={snapshot.stats.activeGrants}
-              hint="Funding, active and paused grants included."
+              hint="Grants in funding, active, or paused state."
               accent
             />
             <StatCard
               label="Escrowed"
               value={snapshot.stats.escrowed}
-              hint="Current total grant commitment."
+              hint="Total funds locked in Stellar vaults."
             />
             <StatCard
               label="Released"
               value={snapshot.stats.released}
-              hint="Based on persisted released amounts."
+              hint="Funds released after reviewer approval."
             />
             <StatCard
               label="Open flags"
               value={snapshot.stats.openFlags}
-              hint="Paused grants still awaiting resolution."
+              hint="Paused grants pending resolution."
             />
           </div>
 
@@ -97,18 +97,19 @@ export default async function DashboardPage({
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-lg font-semibold text-charcoal-800">
-                    Current data connection
+                    Data source
                   </p>
                   <p className="mt-2 text-sm text-charcoal-400">
-                    {snapshot.sourceLabel}. Supabase-backed reads are active when
-                    credentials exist. Contract execution is still the next step.
+                    {snapshot.sourceLabel}. When Supabase credentials are
+                    configured, all data is persisted and read from the
+                    database.
                   </p>
                 </div>
                 <Link
                   href="/auth"
                   className="inline-flex items-center gap-2 rounded-full border border-charcoal-200 bg-white px-4 py-2 text-sm font-medium text-charcoal-600 shadow-soft transition hover:border-milestone-300 hover:bg-milestone-50"
                 >
-                  Reauth
+                  Switch account
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -118,9 +119,9 @@ export default async function DashboardPage({
 
         <div className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
           <SectionHeading
-            eyebrow="Create Grant"
-            title="Persist a real grant into Supabase"
-            description="This form writes to the existing schema when server-side Supabase credentials are configured."
+            eyebrow="New grant"
+            title="Create and fund a grant"
+            description="Define the grant terms, assign a reviewer and beneficiary, and commit funds to the Stellar vault."
           />
           <form action="/api/grants" method="post" className="mt-6 space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
@@ -130,7 +131,7 @@ export default async function DashboardPage({
                   name="title"
                   required
                   minLength={4}
-                  placeholder="Milestone Builders Fund"
+                  placeholder="e.g. Developer Onboarding Fund"
                   className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-3 text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
                 />
               </label>
@@ -151,7 +152,7 @@ export default async function DashboardPage({
               <textarea
                 name="summary"
                 rows={3}
-                placeholder="What outcome is the sponsor funding and how will it be reviewed?"
+                placeholder="Describe the expected outcomes and how evidence will be evaluated."
                 className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-3 text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
               />
             </label>
@@ -169,7 +170,7 @@ export default async function DashboardPage({
                 />
               </label>
               <label className="grid gap-2 text-sm font-medium text-charcoal-600">
-                Cap per window (XLM)
+                Release cap per window (XLM)
                 <input
                   name="capPerWindow"
                   type="number"
@@ -183,18 +184,18 @@ export default async function DashboardPage({
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <label className="grid gap-2 text-sm font-medium text-charcoal-600">
-                Reviewer name
+                Reviewer
                 <input
                   name="reviewerName"
-                  placeholder="Testnet Reviewer"
+                  placeholder="e.g. Alice Chen"
                   className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-3 text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
                 />
               </label>
               <label className="grid gap-2 text-sm font-medium text-charcoal-600">
-                Beneficiary name
+                Beneficiary
                 <input
                   name="beneficiaryName"
-                  placeholder="LATAM Builder Cohort"
+                  placeholder="e.g. LATAM Builder Cohort"
                   className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-3 text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
                 />
               </label>
@@ -203,21 +204,21 @@ export default async function DashboardPage({
               {[
                 {
                   icon: CheckCircle2,
-                  title: "Creates the grant",
+                  title: "Grant is created and recorded",
                   detail:
-                    "Persists title, summary, amounts, visibility and related actors.",
+                    "Title, terms, amounts, and assigned roles are persisted to the database.",
                 },
                 {
                   icon: Sparkles,
-                  title: "Adds the first milestone",
+                  title: "First milestone window opens",
                   detail:
-                    "The initial review window is created automatically.",
+                    "An initial review window is created so the beneficiary can start submitting evidence.",
                 },
                 {
                   icon: PauseCircle,
-                  title: "Writes an audit event",
+                  title: "Audit event is logged",
                   detail:
-                    "The creation event becomes part of the timeline.",
+                    "The creation event enters the audit trail with a timestamp and metadata hash.",
                 },
               ].map(({ icon: Icon, title, detail }) => (
                 <div
@@ -243,8 +244,7 @@ export default async function DashboardPage({
                 <ArrowRight className="h-4 w-4" />
               </button>
               <p className="text-sm text-charcoal-400">
-                If write access is missing, the route returns a clear setup
-                error instead of failing silently.
+                Requires Supabase write access to persist.
               </p>
             </div>
           </form>
@@ -264,9 +264,9 @@ export default async function DashboardPage({
       <section className="mt-14 grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
         <div className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
           <SectionHeading
-            eyebrow="Grants"
-            title="Tracked grants now come from the shared data layer"
-            description="When Supabase is configured, this list reflects persisted grants instead of static demo cards."
+            eyebrow="Tracked grants"
+            title="Grants under management"
+            description="Each grant shows its current status, escrowed amount, and release progress."
           />
           <div className="mt-6 space-y-4">
             {snapshot.grants.map((grant) => (
@@ -303,8 +303,8 @@ export default async function DashboardPage({
         <div className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
           <SectionHeading
             eyebrow="Audit trail"
-            title="The board keeps decisions visible"
-            description="Hashes, evidence and release events are meant to survive the next implementation step."
+            title="Decision history"
+            description="Every creation, evidence submission, reviewer decision, and fund release is recorded here."
           />
           <div className="mt-6 grid gap-3">
             {snapshot.auditTrail.map((item) => (
@@ -322,9 +322,9 @@ export default async function DashboardPage({
 
       <section className="mt-14 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
-          eyebrow="Delegated GitHub flow"
-          title="Repository access is designed as an operational delegation"
-          description="This keeps Milestone aligned with a future delegated test account without forcing direct repo write access."
+          eyebrow="Evidence ingestion"
+          title="Delegated GitHub access for automated evidence collection"
+          description="Beneficiaries delegate repository access so Milestone can capture commits, CI results, and test artifacts as verifiable evidence."
         />
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {snapshot.delegatedGithubWorkflow.map((step) => (

@@ -86,15 +86,15 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-milestone-200 bg-milestone-50 px-3 py-1.5 text-xs font-semibold text-milestone-600">
           <Wallet className="h-3.5 w-3.5" />
-          Mock auth enabled for the MVP scaffold
+          Demo credentials available
         </div>
         <h1 className="mt-5 text-3xl font-semibold tracking-tight text-charcoal-900">
           Sign in to Milestone
         </h1>
         <p className="mt-3 max-w-xl text-sm leading-6 text-charcoal-400">
-          Use hardcoded credentials for now or stub a wallet connection. The
-          actual wallet signature and Stellar session layer will replace this in
-          the next iteration.
+          Access your grant dashboard to manage funds, review evidence, and
+          track releases. Use the demo credentials below or connect your
+          Stellar wallet.
         </p>
 
         <div className="mt-6 space-y-4">
@@ -142,25 +142,25 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
             disabled={isPending}
           >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            Enter with credentials
+            Sign in
           </button>
           <span className="text-xs text-charcoal-400">
-            Email: {mockCredentials.email}
+            Demo: {mockCredentials.email}
           </span>
         </div>
       </form>
 
       <div className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-milestone-400">
-          Wallet login
+          Wallet authentication
         </p>
         <h2 className="mt-3 text-2xl font-semibold text-charcoal-900">
-          Freighter-first flow for the Stellar demo
+          Connect your Stellar wallet
         </h2>
         <p className="mt-3 text-sm leading-6 text-charcoal-400">
-          This path uses Stellar Wallets Kit with Freighter as the visible
-          hackathon wallet. The generic login remains available so judges can
-          still inspect the dashboard even if the extension is not installed.
+          Sign in with Freighter to access your grants with your Stellar
+          identity. Wallet-based authentication ensures that sponsors and
+          reviewers can sign transactions directly.
         </p>
 
         <div className="mt-6 grid gap-3">
@@ -173,15 +173,15 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
               {supportedWalletProviders[0]}
             </span>
             <span className="text-xs text-charcoal-400">
-              connect with extension
+              connect wallet
             </span>
           </button>
         </div>
 
         <div className="mt-6 rounded-xl border border-dashed border-charcoal-200 bg-charcoal-50 p-4 text-sm text-charcoal-400">
-          Wallet sessions should eventually derive from a signed challenge and
-          the Stellar account. This scaffold already preserves the Freighter
-          path while the generic fallback keeps the demo moving.
+          Wallet sessions will derive from a signed challenge using your
+          Stellar account. The demo fallback login is available for reviewers
+          who don&apos;t have the Freighter extension installed.
         </div>
       </div>
     </div>

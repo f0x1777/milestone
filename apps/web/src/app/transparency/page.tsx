@@ -12,16 +12,16 @@ export default async function TransparencyPage() {
     <SiteShell>
       <section className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
-          eyebrow="Public view"
-          title="Transparency without login"
-          description={`This route is intentionally public and shows the sponsor-visible shape of Milestone. ${snapshot.sourceLabel}.`}
+          eyebrow="Public transparency"
+          title="Open grant tracking — no login required"
+          description={`Anyone can inspect how funds are allocated, what evidence has been submitted, and which releases have been approved. ${snapshot.sourceLabel}.`}
         />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="rounded-2xl border border-charcoal-100 bg-charcoal-50 p-5">
             <div className="flex items-center gap-2 font-medium text-milestone-500">
               <Fingerprint className="h-4 w-4" />
-              Onchain summary
+              Grant lifecycle status
             </div>
             <div className="mt-5 space-y-4">
               {snapshot.milestones.map((item) => (
@@ -69,9 +69,9 @@ export default async function TransparencyPage() {
 
       <section className="mt-10 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
-          eyebrow="Latest activity"
-          title="Each public grant keeps a visible trail"
-          description="This timeline is the public-safe version of creation, evidence, and release activity."
+          eyebrow="Activity timeline"
+          title="Public record of grant decisions"
+          description="Creation events, evidence submissions, reviewer decisions, and fund releases — all visible to the public."
         />
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {snapshot.auditTrail.map((item) => (
@@ -91,9 +91,9 @@ export default async function TransparencyPage() {
 
       <section className="mt-10 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
         <SectionHeading
-          eyebrow="Evidence flow"
-          title="Delegated repository access is already part of the operating model"
-          description="GitHub automation comes later, but the workflow and public explanation are already shaped."
+          eyebrow="Evidence verification"
+          title="How evidence is collected and verified"
+          description="Beneficiaries delegate repository access so Milestone can independently capture commits, test results, and deployment artifacts."
         />
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {snapshot.delegatedGithubWorkflow.map((step) => (

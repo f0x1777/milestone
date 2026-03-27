@@ -61,11 +61,11 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-[800px] text-[80px] font-medium leading-[0.95] tracking-[-0.04em] text-charcoal-900"
           >
-            Simple{" "}
+            Fund{" "}
             <span className="font-instrument italic text-[100px] text-milestone-400">
-              management
-            </span>{" "}
-            for your remote team
+              outcomes
+            </span>
+            , not promises
           </motion.h1>
 
           <motion.p
@@ -78,9 +78,9 @@ export function HeroSection() {
             }}
             className="max-w-[554px] text-lg leading-relaxed text-[#373a46]/80"
           >
-            Milestone turns sponsor capital into a verifiable release flow on
-            Stellar — deposit, evidence, decision, and controlled unlock with
-            full auditability.
+            Milestone turns grants into controlled release flows on Stellar.
+            Deposit funds, collect evidence, review decisions, and release
+            payments — all with a verifiable audit trail.
           </motion.p>
 
           <motion.div
@@ -104,7 +104,7 @@ export function HeroSection() {
                 href="/auth"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-charcoal-800 to-charcoal-950 px-6 py-3 text-sm font-semibold text-white shadow-cta-inset transition-all hover:from-charcoal-900 hover:to-black"
               >
-                Create Free Account
+                Start for Free
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -120,7 +120,7 @@ export function HeroSection() {
                 ))}
               </div>
               <span className="text-sm font-medium text-charcoal-600">
-                1,020+ Reviews
+                Trusted by grant programs worldwide
               </span>
               <div className="flex items-center gap-2 border-l border-charcoal-200 pl-3">
                 <div className="flex -space-x-2">

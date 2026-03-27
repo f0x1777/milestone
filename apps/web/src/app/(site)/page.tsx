@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { BadgeCheck, GitBranch, Shield, Sparkles } from "lucide-react";
+import {
+  BadgeCheck,
+  ShieldCheck,
+  Wallet,
+  Eye,
+  ArrowRight,
+} from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 import { SectionHeading } from "@/components/section-heading";
 import { HeroSection } from "@/components/hero-section";
@@ -23,36 +29,36 @@ export default async function HomePage() {
 
       {/* Content sections below the fold */}
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
-        {/* Vault Status */}
+        {/* How it works */}
         <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div className="pt-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-milestone-200 bg-milestone-50 px-4 py-1.5 text-xs font-semibold text-milestone-600">
-              <Sparkles className="h-3.5 w-3.5" />
-              Milestone on Stellar testnet
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Built on Stellar &middot; Powered by Soroban
             </div>
             <h2 className="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-charcoal-900 sm:text-5xl">
-              Controlled grants that move by evidence, not by guesswork.
+              Every release is backed by evidence and reviewer approval.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-charcoal-400 sm:text-lg">
-              Milestone turns sponsor capital into a verifiable release flow:
-              deposit, evidence, decision, partial unlock and pause. The current
-              web layer now reads through the shared data layer and is ready to
-              connect to live Supabase and Soroban state.
+              Sponsors deposit funds into a Stellar vault. Beneficiaries submit
+              evidence for each milestone. Reviewers evaluate and approve
+              partial releases. The public can inspect the full timeline — no
+              login required.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/auth"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-charcoal-800 to-charcoal-950 px-6 py-3 text-sm font-semibold text-white shadow-cta-inset transition-all hover:from-charcoal-900 hover:to-black"
               >
-                Open auth
-                <Shield className="h-4 w-4" />
+                Create a grant
+                <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/dashboard"
+                href="/transparency"
                 className="inline-flex items-center gap-2 rounded-full border border-charcoal-200 bg-white px-6 py-3 text-sm font-medium text-charcoal-700 shadow-soft transition hover:border-milestone-300 hover:bg-milestone-50"
               >
-                View dashboard
-                <Shield className="h-4 w-4" />
+                View public trail
+                <Eye className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -61,48 +67,48 @@ export default async function HomePage() {
             <div className="rounded-2xl border border-charcoal-100 bg-charcoal-50 p-5">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-charcoal-700">
-                  Vault status
+                  Live vault metrics
                 </p>
                 <span className="rounded-full border border-milestone-200 bg-milestone-50 px-3 py-1 text-xs font-semibold text-milestone-600">
-                  Testnet live
+                  Stellar testnet
                 </span>
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <StatCard
-                  label="Total escrow"
+                  label="Total escrowed"
                   value={`${new Intl.NumberFormat("en-US", {
                     maximumFractionDigits: 2,
                   }).format(totalEscrow)} XLM`}
-                  hint="Current public grant commitments."
+                  hint="Funds locked in grant vaults."
                   accent
                 />
                 <StatCard
-                  label="Public grants"
+                  label="Active grants"
                   value={String(snapshot.grants.length)}
-                  hint="Currently visible on the transparency route."
+                  hint="Grants currently being tracked."
                 />
                 <StatCard
                   label="Review windows"
                   value={String(snapshot.milestones.length)}
-                  hint="Milestones currently attached to public grants."
+                  hint="Milestones awaiting evidence or review."
                 />
                 <StatCard
-                  label="Released grants"
+                  label="Funds released"
                   value={String(releasedGrants)}
-                  hint="Public grants with at least one release recorded."
+                  hint="Grants with at least one approved release."
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Workflow & Audit */}
+        {/* Grant Lifecycle & Audit */}
         <section className="mt-20 grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
             <SectionHeading
-              eyebrow="Workflow"
-              title="The grant flow stays explicit"
-              description="This is the operating model that the contract and dashboard should preserve."
+              eyebrow="Grant lifecycle"
+              title="From deposit to release — every step is explicit"
+              description="Each grant follows a structured flow that ensures funds only move when evidence is reviewed and approved."
             />
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {snapshot.milestones.map((item) => (
@@ -125,9 +131,9 @@ export default async function HomePage() {
           </div>
           <div className="rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
             <SectionHeading
-              eyebrow="Audit"
-              title="Everything leaves a trail"
-              description="Decision hashes, evidence links and release events are all first-class records."
+              eyebrow="Audit trail"
+              title="Full traceability by default"
+              description="Every decision, evidence submission, and fund release is recorded with cryptographic hashes."
             />
             <div className="mt-6 space-y-4">
               {snapshot.auditTrail.map((item) => (
@@ -147,12 +153,12 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Portfolio */}
+        {/* Active Grants */}
         <section className="mt-20 rounded-3xl border border-charcoal-100 bg-white p-6 shadow-card">
           <SectionHeading
-            eyebrow="Portfolio"
-            title="Milestone already has a shape for sponsors and reviewers"
-            description="These cards mirror the entities the backend and contract will eventually manage."
+            eyebrow="Active grants"
+            title="Real grants tracked on the Stellar network"
+            description="Each grant has a sponsor, reviewer, and beneficiary — with funds held in a Soroban vault until evidence is approved."
           />
           <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {snapshot.grants.map((grant) => (
@@ -187,19 +193,19 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Footer */}
+        {/* Role-based access */}
         <section className="mt-20 grid gap-4 border-t border-charcoal-100 pt-8 text-sm text-charcoal-400 sm:grid-cols-3">
           <div className="flex items-center gap-2">
-            <GitBranch className="h-4 w-4 text-milestone-400" />
-            Next.js App Router scaffold
+            <Wallet className="h-4 w-4 text-milestone-400" />
+            Stellar wallet signing for sponsors and reviewers
           </div>
           <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 text-milestone-400" />
-            Wallet and hardcoded auth placeholders
+            <ShieldCheck className="h-4 w-4 text-milestone-400" />
+            Soroban smart contract for fund custody
           </div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-milestone-400" />
-            Styled for milestones, not generic portals
+            <Eye className="h-4 w-4 text-milestone-400" />
+            Public transparency view — no login required
           </div>
         </section>
       </div>
