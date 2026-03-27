@@ -1,6 +1,6 @@
 # Supabase Base for Milestone
 
-This folder defines the database and storage contract for the Stellar Hackathon iteration of Milestone.
+This folder defines the database and storage contract for Milestone.
 
 ## Structure
 

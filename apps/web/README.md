@@ -1,6 +1,6 @@
 # Milestone Web
 
-Next.js App Router scaffold for Milestone.
+Next.js App Router product shell for Milestone.
 
 ## What is included
 
@@ -28,4 +28,4 @@ pnpm dev
 
 - This scaffold intentionally stays inside `apps/web`.
 - The repository already has a root workspace, so you can also run it from the repo root with `pnpm web:dev`.
-- Freighter is the visible wallet path for the Stellar hackathon demo. The generic credentials flow remains as a fallback for operators and judges.
+- Freighter is the current visible wallet path for the Stellar-based flow. The generic credentials path remains as a temporary fallback for operators and judges.
