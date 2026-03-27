@@ -1,0 +1,19 @@
+[package]
+name = "milestone-vault"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+soroban-sdk = "25.3.0"
+
+[dev-dependencies]
+soroban-sdk = { version = "25.3.0", features = ["testutils"] }
+
+[features]
+default = ["testutils"]
+testutils = ["soroban-sdk/testutils"]
