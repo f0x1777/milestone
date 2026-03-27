@@ -16,6 +16,9 @@
     "test:all": "pnpm test && pnpm contract:test",
     "web:build": "pnpm --filter milestone-web build",
     "web:dev": "pnpm --filter milestone-web dev",
+    "video:dev": "pnpm --filter milestone-video dev",
+    "video:render": "pnpm --filter milestone-video render",
+    "video:audio": "pnpm --filter milestone-video generate-audio",
     "format": "turbo run format"
   },
   "devDependencies": {
