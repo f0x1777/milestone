@@ -371,32 +371,6 @@ type MutationResult =
       error: string;
     };
 
-export type CreateMilestoneResult =
-  | {
-      ok: true;
-      milestone: {
-        id: string;
-      };
-      source: "supabase";
-    }
-  | {
-      ok: false;
-      error: string;
-    };
-
-export type CreateEvidencePackResult =
-  | {
-      ok: true;
-      evidencePack: {
-        id: string;
-      };
-      source: "supabase";
-    }
-  | {
-      ok: false;
-      error: string;
-    };
-
 type RuntimeGrantRecord = {
   snapshot: GrantDetailSnapshot;
   totalAmount: number;
@@ -598,7 +572,7 @@ function buildRuntimeAuditTrail(limit = 6) {
 function buildRuntimeMilestones(limit = 6) {
   return getRuntimeGrantRecords()
     .flatMap((record) => record.snapshot.milestones)
-    .sort((left, right) => right.orderIndex - left.orderIndex)
+    .sort((left, right) => left.orderIndex - right.orderIndex)
     .slice(0, limit)
     .map((milestone) => ({
       name: milestone.name,
@@ -1140,9 +1114,17 @@ function createRuntimeEvaluationForGrant(
         "Reviewer paused the grant pending stronger evidence.",
       createdAt
     });
+  } else if (["approve", "adjust"].includes(value.decision)) {
+    const nextStatusKey =
+      record.snapshot.grant.statusKey === "draft" ? "funding" : "active";
+    record.snapshot.grant.status = humanizeGrantStatus(nextStatusKey);
+    record.snapshot.grant.statusKey = nextStatusKey;
+    record.snapshot.timeline.unshift({
+      label: "Evaluation recorded",
+      detail: decision,
+      createdAt
+    });
   } else {
-    record.snapshot.grant.status = humanizeGrantStatus("active");
-    record.snapshot.grant.statusKey = "active";
     record.snapshot.timeline.unshift({
       label: "Evaluation recorded",
       detail: decision,

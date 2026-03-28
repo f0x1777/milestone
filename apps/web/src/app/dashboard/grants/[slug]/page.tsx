@@ -300,6 +300,7 @@ export default async function GrantDetailPage({
         beneficiary={detail.grant.beneficiary}
         summary={detail.grant.summary}
         sourceLabel={detail.sourceLabel}
+        contractAddress={detail.grant.contractAddress}
       />
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
