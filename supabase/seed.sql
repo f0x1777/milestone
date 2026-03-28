@@ -111,14 +111,39 @@ with grant_ref as (
   from public.grants
   where slug = 'milestone-builders-fund'
 )
-insert into public.milestones (grant_id, order_index, name, description, status)
-select grant_id, 0, 'Deposit locked', 'Grant funded into the testnet vault.', 'completed'
+insert into public.milestones (
+  grant_id,
+  order_index,
+  name,
+  description,
+  success_metric,
+  verification_method,
+  evidence_requirements,
+  status
+)
+select
+  grant_id,
+  0,
+  'Deposit locked',
+  'Grant funded into the testnet vault.',
+  'Vault balance visible on Stellar testnet.',
+  'Verify escrow status and funding transaction.',
+  'Funding transaction hash and vault address.',
+  'completed'
 from grant_ref
 where not exists (
   select 1 from public.milestones where grant_id = grant_ref.grant_id and order_index = 0
 )
 union all
-select grant_id, 1, 'Evidence submitted', 'First evidence pack attached for review.', 'submitted'
+select
+  grant_id,
+  1,
+  'Evidence submitted',
+  'First evidence pack attached for review.',
+  'Repository, docs, and demo links submitted for milestone review.',
+  'Reviewer checks links, commit refs, and execution evidence.',
+  'Repo URL, docs URL, demo URL, and reviewer note.',
+  'submitted'
 from grant_ref
 where not exists (
   select 1 from public.milestones where grant_id = grant_ref.grant_id and order_index = 1
@@ -129,14 +154,39 @@ with grant_ref as (
   from public.grants
   where slug = 'university-prototype-sprint'
 )
-insert into public.milestones (grant_id, order_index, name, description, status)
-select grant_id, 0, 'Grant drafted', 'Grant metadata captured and ready for funding.', 'planned'
+insert into public.milestones (
+  grant_id,
+  order_index,
+  name,
+  description,
+  success_metric,
+  verification_method,
+  evidence_requirements,
+  status
+)
+select
+  grant_id,
+  0,
+  'Grant drafted',
+  'Grant metadata captured and ready for funding.',
+  'Stakeholders and funding terms agreed.',
+  'Review grant metadata and assigned roles.',
+  'Grant summary and reviewer assignment.',
+  'planned'
 from grant_ref
 where not exists (
   select 1 from public.milestones where grant_id = grant_ref.grant_id and order_index = 0
 )
 union all
-select grant_id, 1, 'Funding pending', 'Sponsor still needs to fund the Stellar testnet grant flow.', 'in_progress'
+select
+  grant_id,
+  1,
+  'Funding pending',
+  'Sponsor still needs to fund the Stellar testnet grant flow.',
+  'Initial funding transaction submitted.',
+  'Check sponsor wallet and upcoming contract funding step.',
+  'Wallet signature plus funding reference.',
+  'in_progress'
 from grant_ref
 where not exists (
   select 1 from public.milestones where grant_id = grant_ref.grant_id and order_index = 1

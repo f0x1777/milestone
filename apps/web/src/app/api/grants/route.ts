@@ -20,6 +20,13 @@ type JsonGrantBody = {
   reviewerName?: string;
   beneficiaryName?: string;
   visibility?: string;
+  firstMilestoneName?: string;
+  firstMilestoneDescription?: string;
+  firstMilestoneSuccessMetric?: string;
+  firstMilestoneVerificationMethod?: string;
+  firstMilestoneEvidenceRequirements?: string;
+  firstMilestoneTargetDate?: string;
+  firstMilestoneBudgetHint?: string;
 };
 
 function isJsonRequest(request: Request) {
@@ -39,7 +46,16 @@ export async function POST(request: Request) {
     capPerWindow: payload.capPerWindow ?? "",
     reviewerName: payload.reviewerName ?? "",
     beneficiaryName: payload.beneficiaryName ?? "",
-    visibility: payload.visibility ?? "public"
+    visibility: payload.visibility ?? "public",
+    firstMilestoneName: payload.firstMilestoneName ?? "",
+    firstMilestoneDescription: payload.firstMilestoneDescription ?? "",
+    firstMilestoneSuccessMetric: payload.firstMilestoneSuccessMetric ?? "",
+    firstMilestoneVerificationMethod:
+      payload.firstMilestoneVerificationMethod ?? "",
+    firstMilestoneEvidenceRequirements:
+      payload.firstMilestoneEvidenceRequirements ?? "",
+    firstMilestoneTargetDate: payload.firstMilestoneTargetDate ?? "",
+    firstMilestoneBudgetHint: payload.firstMilestoneBudgetHint ?? ""
   });
 
   if (!result.ok) {
@@ -60,7 +76,7 @@ export async function POST(request: Request) {
     });
   }
 
-  const redirectUrl = new URL("/dashboard", request.url);
-  redirectUrl.searchParams.set("grantCreated", result.grant.slug);
+  const redirectUrl = new URL(`/dashboard/grants/${result.grant.slug}`, request.url);
+  redirectUrl.searchParams.set("actionSuccess", "grant");
   return NextResponse.redirect(redirectUrl, { status: 303 });
 }

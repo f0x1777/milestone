@@ -8,6 +8,8 @@ node_modules
 dist
 build
 .next
+.milestone-demo
+apps/web/.milestone-demo
 coverage
 target
 .soroban
