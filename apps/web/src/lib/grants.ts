@@ -5,7 +5,8 @@ import {
   readFileSync,
   writeFileSync
 } from "fs";
-import { join } from "path";
+import { tmpdir } from "os";
+import { dirname, join } from "path";
 import {
   auditTrail as fallbackAuditTrail,
   delegatedGithubWorkflow,
@@ -385,7 +386,11 @@ const fallbackDashboardBase = {
   openFlags: 1
 };
 
-const runtimeGrantStoreFile = join(process.cwd(), ".milestone-demo", "runtime-grants.json");
+const runtimeGrantStoreFile = join(
+  tmpdir(),
+  "milestone-demo",
+  "runtime-grants.json"
+);
 
 function parseNumericValue(value: number | string | null | undefined) {
   if (typeof value === "number") {
@@ -496,7 +501,7 @@ function readRuntimeGrantStore() {
 }
 
 function writeRuntimeGrantStore(records: RuntimeGrantRecord[]) {
-  mkdirSync(join(process.cwd(), ".milestone-demo"), { recursive: true });
+  mkdirSync(dirname(runtimeGrantStoreFile), { recursive: true });
   writeFileSync(
     runtimeGrantStoreFile,
     JSON.stringify(records.map(cloneRuntimeGrantRecord), null, 2),
