@@ -9,6 +9,8 @@ package-lock.json
 dist
 build
 .next
+.milestone-demo
+apps/web/.milestone-demo
 coverage
 target
 .soroban
