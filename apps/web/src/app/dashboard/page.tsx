@@ -264,9 +264,12 @@ export default async function DashboardPage({
                 className="grid grid-cols-[1fr_140px_140px_120px_160px] items-center gap-4 border-b border-charcoal-50 bg-white px-5 py-4 transition-colors last:border-b-0 hover:bg-charcoal-50/40"
               >
                 <div className="min-w-0">
-                  <p className="truncate font-medium text-charcoal-800">
+                  <Link
+                    href={`/dashboard/grants/${grant.slug}`}
+                    className="truncate font-medium text-charcoal-800 transition hover:text-milestone-600"
+                  >
                     {grant.title}
-                  </p>
+                  </Link>
                   <p className="mt-0.5 truncate text-xs text-charcoal-400">
                     {grant.beneficiary} · {grant.reviewer}
                   </p>
@@ -388,6 +391,83 @@ export default async function DashboardPage({
                   className="rounded-xl border border-charcoal-200 bg-charcoal-50 px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
                 />
               </label>
+            </div>
+            <div className="rounded-2xl border border-charcoal-100 bg-charcoal-50/60 p-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-milestone-500">
+                  Initial milestone
+                </p>
+                <p className="mt-1 text-sm text-charcoal-400">
+                  Capture the first KPI window so the grant is ready for evidence and review immediately.
+                </p>
+              </div>
+              <div className="mt-4 grid gap-4">
+                <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                  Milestone name
+                  <input
+                    name="firstMilestoneName"
+                    placeholder="e.g. MVP shipped to testnet"
+                    className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                  />
+                </label>
+                <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                  Milestone description
+                  <textarea
+                    name="firstMilestoneDescription"
+                    rows={2}
+                    placeholder="Describe the expected deliverable for the first release window."
+                    className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                  />
+                </label>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                    Success metric
+                    <input
+                      name="firstMilestoneSuccessMetric"
+                      placeholder="e.g. CI green + demo published"
+                      className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                    />
+                  </label>
+                  <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                    Verification method
+                    <input
+                      name="firstMilestoneVerificationMethod"
+                      placeholder="e.g. reviewer checks repo, run URL and demo"
+                      className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                    />
+                  </label>
+                </div>
+                <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                  Evidence requirements
+                  <textarea
+                    name="firstMilestoneEvidenceRequirements"
+                    rows={2}
+                    placeholder="e.g. repo URL, commit hash, docs link, demo URL and test run."
+                    className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                  />
+                </label>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                    Target date
+                    <input
+                      name="firstMilestoneTargetDate"
+                      type="date"
+                      className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                    />
+                  </label>
+                  <label className="grid gap-1.5 text-sm font-medium text-charcoal-600">
+                    Budget hint (XLM)
+                    <input
+                      name="firstMilestoneBudgetHint"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="2500"
+                      className="rounded-xl border border-charcoal-200 bg-white px-4 py-2.5 text-sm text-charcoal-800 outline-none transition placeholder:text-charcoal-300 focus:border-milestone-400 focus:ring-2 focus:ring-milestone-100"
+                    />
+                  </label>
+                </div>
+              </div>
             </div>
             <button
               type="submit"

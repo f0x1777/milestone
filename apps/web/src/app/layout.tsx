@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { IBM_Plex_Mono } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
 
@@ -15,6 +16,13 @@ const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
 });
 
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif"
+});
+
 export const metadata: Metadata = {
   title: "Milestone",
   description:
@@ -27,13 +35,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${ibmPlexMono.variable}`}>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`${geist.variable} ${ibmPlexMono.variable} ${instrumentSerif.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

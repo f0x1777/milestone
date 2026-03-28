@@ -44,5 +44,5 @@ a {
 
 /* Instrument Serif */
 .font-instrument {
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-instrument-serif), serif;
 }
